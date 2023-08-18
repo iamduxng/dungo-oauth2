@@ -1,5 +1,5 @@
 import { getServerSession } from "next-auth/next"
-
+import { redirect } from 'next/navigation'
 import { authOptions } from '~/services/authOptions'
 
 export async function getCurrentUser() {
@@ -7,9 +7,8 @@ export async function getCurrentUser() {
 
   if (!session) {
     console.log({ message: "You must be logged in." })
-    // TODO: Redirect to /login
-    return;
+    return redirect('/login')
   }
 
-  return session?.user
+  return session
 }
