@@ -1,3 +1,7 @@
 .section {
   @apply w-full min-h-screen;
 }
+
+.wrapper {
+  @apply p-8 w-full h-full bg-white overflow-auto rounded-3xl;
+}
