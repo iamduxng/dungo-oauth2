@@ -1,0 +1,8 @@
+.btnSignIn {
+  @apply flex justify-center items-center w-full p-4 shadow rounded-xl;
+  @apply border border-gray-300 cursor-pointer text-xl;
+}
+
+.btnSignIn:disabled {
+  @apply cursor-not-allowed opacity-30;
+}
