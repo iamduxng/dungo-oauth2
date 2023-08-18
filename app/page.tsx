@@ -2,6 +2,8 @@ import Image from 'next/image'
 import { getUserId } from '~/services/helpers'
 import { getCurrentUser } from '~/services/session'
 
+import styles from './Home.module.css'
+
 async function fetchUser(userId: string) {
   const res = await fetch(`https://api.github.com/user/${userId}`)
   if (!res.ok) {
@@ -25,14 +27,22 @@ async function Home() {
   const { user } = session
 
   const userId = getUserId(user.image)
-  if (!userId) return <></>
+  if (!userId) return (
+    <div className={styles.wrapper}>
+      <div className="text-2xl">No user id</div>
+    </div>
+  )
+
   const githubUser = await fetchUser(userId)
-  
-  if (!githubUser) return <></>
+  if (!githubUser) return (
+    <div className={styles.wrapper}>
+      <div className="text-2xl">Not found Github user (Git API Rate limit)</div>
+    </div>
+  )
   const repositories = await fetchRepos(githubUser.login)
 
   return (
-    <div className="p-8 w-full h-full bg-white overflow-auto rounded-3xl">
+    <div className={styles.wrapper}>
       <div className="flex items-center mb-12">
         <div className="relative w-40 h-40 rounded-full overflow-hidden shadow">
           <Image src={user.image} alt={user.name} fill />
